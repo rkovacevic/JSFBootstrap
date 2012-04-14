@@ -36,9 +36,9 @@ You can now deploy the artifact to JBoss AS by executing the following command:
 
     mvn jboss-as:deploy
 
-This will deploy `target/cateringee.war`.
+This will deploy `target/jsfbootstrap.war`.
  
-The application will be running at the following URL <http://localhost:8080/cateringee/>.
+The application will be running at the following URL <http://localhost:8080/jsfbootstrap/>.
 
 To undeploy from JBoss AS, run this command:
 
