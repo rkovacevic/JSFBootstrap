@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="content">
+		<div class="hero-unit">
+			<h2>JSF2 + Twitter Bootstrap demo</h2>
+			<p>This is a template for a simple marketing or informational
+				website. It includes a large callout called the hero unit and three
+				supporting pieces of content. Use it as a starting point to create
+				something more unique.</p>
+			<p>
+				<a href="http://rkovacevic.blogspot.com/"
+					class="btn btn-primary btn-large">Visit my blog!</a>
+			</p>
+
+			<br />
+			<h3>Your application can run on:</h3>
+			<img src="resources/gfx/dualbrand_as7eap.png" />
+
+		</div>
+
+		<div class="well">
+			<h:form id="reg" styleClass="form-horizontal">
+				<fieldset>
+					<h2>Member Registration</h2>
+					<br />
+
+					<h:panelGroup
+						rendered="#{(not facesContext.validationFailed) and (not empty facesContext.messageList)}">
+						<div class="alert alert-success">
+							<a class="close" data-dismiss="alert">×</a>
+							<h:messages styleClass="messages" errorClass="invalid"
+								infoClass="valid" warnClass="warning" globalOnly="true" />
+						</div>
+					</h:panelGroup>
+
+					<div class="control-group #{!name.valid ? 'error' : ''}">
+						<h:outputLabel for="name" value="Name:" styleClass="control-label" />
+						<div class="controls">
+							<h:inputText id="name" value="#{newMember.name}"
+								binding="#{name}" />
+							<h:message for="name" errorClass="help-inline" />
+						</div>
+					</div>
+
+					<div class="control-group #{!email.valid ? 'error' : ''}">
+						<h:outputLabel for="email" value="Email:"
+							styleClass="control-label" />
+						<div class="controls">
+							<h:inputText id="email" value="#{newMember.email}"
+								binding="#{email}" />
+							<h:message for="email" errorClass="help-inline" />
+						</div>
+					</div>
+
+					<div class="control-group #{!phoneNumber.valid ? 'error' : ''}">
+						<h:outputLabel for="phoneNumber" value="Phone #:"
+							styleClass="control-label" />
+						<div class="controls">
+							<h:inputText id="phoneNumber" value="#{newMember.phoneNumber}"
+								binding="#{phoneNumber}" />
+							<h:message for="phoneNumber" errorClass="help-inline" />
+						</div>
+					</div>
+
+					<div class="form-actions">
+						<h:commandButton id="register"
+							action="#{memberController.register}" value="Register"
+							styleClass="btn btn-primary" />
+					</div>
+				</fieldset>
+			</h:form>
+		</div>
+
+		<div class="well">
+			<h2>Members</h2>
+			<br />
+			<h:panelGroup rendered="#{empty members}">
+				<em>No registered members.</em>
+			</h:panelGroup>
+			<h:dataTable id="dataTable" var="_member" value="#{members}"
+				rendered="#{not empty members}"
+				styleClass="table table-striped table-bordered">
+				<h:column>
+					<f:facet name="header">Id</f:facet>
+                #{_member.id}
+            </h:column>
+				<h:column>
+					<f:facet name="header">Name</f:facet>
+                #{_member.name}
+            </h:column>
+				<h:column>
+					<f:facet name="header">Email</f:facet>
+                #{_member.email}
+            </h:column>
+				<h:column>
+					<f:facet name="header">Phone #</f:facet>
+                #{_member.phoneNumber}
+            </h:column>
+				<h:column>
+					<f:facet name="header">REST URL</f:facet>
+					<a href="#{request.contextPath}/rest/members/#{_member.id}">/rest/members/#{_member.id}</a>
+				</h:column>
+				<f:facet name="footer">
+            REST URL for all members: <a
+						href="#{request.contextPath}/rest/members">/rest/members</a>
+				</f:facet>
+			</h:dataTable>
+		</div>
+	</ui:define>
+</ui:composition>
